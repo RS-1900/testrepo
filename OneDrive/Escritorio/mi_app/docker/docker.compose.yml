@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    networks:
+      - red-proyecto
+    volumes:
+      - ./html:/usr/share/nginx/html # Volumen para cambios en tiempo real
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: password123
+    networks:
+      - red-proyecto
+    volumes:
+      - datos-db:/var/lib/postgresql/data #volumen persistente
+
+networks:
+  red-proyecto: 
+    driver: bridge
+
+volumes:
+  datos-db: # definie el volumen
