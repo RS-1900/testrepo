@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Despliegue de infraestructura EC2 y S3 de waffle'
+
+Resources:
+  # aqui se define el bucket s3
+  MiBucketProyecto:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub "bucket-proyectodevops-${AWS::AccountId}"
+
+  # aqui la instancia ec2
+  MiInstanciaServidor:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t3.micro
+      ImageId: ami-0c7217cdde317cfec #la imagen que tendra la instancia (ubuntu)
+      IamInstanceProfile: LabInstanceProfile
+      Tags:
+        - Key: Name
+          Value: ServidorCloudFormation
